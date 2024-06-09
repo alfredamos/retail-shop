@@ -1,9 +1,17 @@
-import { useQuery } from "@tanstack/vue-query";
-import { customerByUserIdService } from "../../APIRoutes/customerRoute";
+import { useFetchAllCustomers } from "./useFetchAllCustomers";
+import { onMounted, ref } from "vue";
 
-export function useGetCustomerByUserId(userId: string) {
-  return useQuery({
-    queryKey: ["customers", userId],
-    queryFn: () => customerByUserIdService.getOne(userId),
+export function useGetCustomerId(userId: string) {
+  const customerId = ref("");
+  const { data: customers } = useFetchAllCustomers();
+
+  onMounted(() => {
+    const idOfCustomer = customers.value?.find(
+      (customer) => customer.userId === userId
+    )?.id as string;
+
+    customerId.value = idOfCustomer;
   });
+
+  return { customerId };
 }

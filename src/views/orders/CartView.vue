@@ -47,7 +47,7 @@ import { FaArrowLeft } from "vue3-icons/fa6";
 import type { CartItem } from "@/validations/cartItemValidation";
 import { computed, ref } from "vue";
 import { quantityAdjustmentOrRemoval } from "@/components/view-util/cartItems/increaseOrRemoveQuantity";
-import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerId";
+import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerByUserId";
 import { increaseOrDecreaseCartQuantity } from "@/components/view-util/cartItems/increaseOrDecreaseCartQuantity";
 
 const router = useRouter();

@@ -12,6 +12,8 @@ import ProductListView from "@/views/products/ProdListView.vue";
 import DetailProductView from "@/views/products/DetailProductView.vue";
 import CartView from "@/views/orders/CartView.vue";
 import CheckoutView from "@/views/orders/CheckOutView.vue";
+import ListOrderView from "@/views/orders/ListOrderView.vue";
+import CustomerAllOrdersView from "@/views/orders/CustomerAllOrdersView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +84,18 @@ const router = createRouter({
       name: "checkout",
       beforeEnter: protectedRoute,
       component: CheckoutView,
+    },
+    {
+      path: "/admin-orders",
+      name: "admin-orders",
+      beforeEnter: adminRoute,
+      component: ListOrderView,
+    },
+    {
+      path: "/orders",
+      name: "orders",
+      beforeEnter: protectedRoute,
+      component: CustomerAllOrdersView,
     },
 
     /* {

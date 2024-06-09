@@ -1,8 +1,8 @@
 <template>
-  <div class="mb-3">
-    <label :for="id" class="form-label">{{ props.labelName }}</label>
-    <textarea :id="id" v-bind="{ ...$attrs }" v-model="model"/>
-  </div>
+  <!-- <div class="mb-3"> -->
+  <label :for="id" class="form-label">{{ props.labelName }}</label>
+  <textarea :id="id" v-bind="{ ...$attrs }" v-model="model"></textarea>
+  <!-- </div> -->
 </template>
 
 <script setup lang="ts">

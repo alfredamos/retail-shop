@@ -1,7 +1,7 @@
-import { CartItem } from "../validations/cartItemValidation";
+import type { CartItem } from "@/validations/cartItemValidation";
 import { Status } from "./Status";
 
-export class OrderProduct{
+export class OrderProduct {
   id?: string;
   customerId: string = "";
   cartItems: CartItem[] = [];

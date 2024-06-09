@@ -1,11 +1,7 @@
 <template>
   <div class="container">
     <div class="row" v-if="!!products">
-      <div
-        v-for="product in products"
-        class="col col-lg-4 mb-4 mt-5"
-        :key="product.id"
-      >
+      <div v-for="product in products" class="col col-lg-4 mb-4 mt-5" :key="product.id">
         <ProductDisplay :product="(product as Product)">
           <button
             type="button"
@@ -38,14 +34,12 @@
 import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useOrderStore } from "@/stores/useOrderStore";
-import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerId";
 import { useAuthStore } from "@/stores/useAuthStore";
-import { useGetOrderAndCartItems } from "@/composable/orders/useGetOrderAndCartItems";
-
 import ProductDisplay from "@/components/UI/products/ProductDisplay.vue";
 import CartItemsDisplay from "@/UI/orders/CartItemsDisplay.vue";
 import type { CartItem } from "@/validations/cartItemValidation";
 import type { Product } from "@/validations/productValidation";
+import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerByUserId";
 import { useFetchAllProducts } from "@/composable/products/useFetchAllProducts";
 import { findCartItem } from "@/components/view-util/cartItems/findCartItem";
 import { addCartItems } from "@/components/view-util/cartItems/addCartItems";

@@ -14,7 +14,7 @@ const props = defineProps<Props>();
 const { formName, initialValue } = toRefs(props);
 const emit = defineEmits(["onEditProfile", "onBackToList"]);
 
-console.log("In edit-profile-form, initialValue : ", initialValue.value)
+console.log("In edit-profile-form, initialValue : ", initialValue.value);
 
 const editProfile = ref<EditProfile>(initialValue.value);
 
@@ -28,12 +28,13 @@ const backToList = () => {
 </script>
 
 <template>
-  <div class="card w-50 mx-auto">
-      <form @submit.prevent="editProfileSubmit">
-        <div class="card-header">
-          <h4 class="text-center">Profile Update Form</h4>
-        </div>
-        <div class="card-body">
+  <div class="card card-border-primary shadow-lg text-black w-50 mx-auto mt-5 p-4">
+    <form @submit.prevent="editProfileSubmit">
+      <div class="card-header bg-transparent border-0">
+        <h4 class="text-center">Profile Update Form</h4>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
           <Input
             id="name"
             name="name"
@@ -43,15 +44,19 @@ const backToList = () => {
             required
             class="form-control"
           />
+        </div>
+        <div class="mb-3">
           <Input
             id="email"
             name="email"
             v-model.trim="editProfile.email"
             hidden
-            labelName="Email"
+            labelName=""
             type="email"
             class="form-control"
           />
+        </div>
+        <div class="mb-3">
           <Input
             id="phone"
             name="phone"
@@ -61,6 +66,8 @@ const backToList = () => {
             required
             class="form-control"
           />
+        </div>
+        <div class="mb-3">
           <Input
             id="password"
             name="password"
@@ -70,6 +77,8 @@ const backToList = () => {
             required
             class="form-control"
           />
+        </div>
+        <div class="mb-3">
           <Select
             id="gender"
             labelName="Gender"
@@ -81,21 +90,19 @@ const backToList = () => {
             <option value="Female">Female</option>
           </Select>
         </div>
-        <div class="card-footer d-flex justify-content-between">        
-          <Button
-            type="button"
-            class="btn btn-outline-secondary w-50 fw-bold rounded-3"
-            @click="backToList"
-          >
-            Back
-          </Button>
-          <Button
-            type="submit"
-            class="btn btn-outline-primary w-50 fw-bold rounded-3"
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
-    </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between bg-transparent border-0">
+        <Button
+          type="button"
+          class="btn btn-outline-secondary w-50 fw-bold rounded-5"
+          @click="backToList"
+        >
+          Back
+        </Button>
+        <Button type="submit" class="btn btn-outline-primary w-50 fw-bold rounded-5">
+          Submit
+        </Button>
+      </div>
+    </form>
+  </div>
 </template>

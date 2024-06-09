@@ -24,30 +24,34 @@ const backToList = () => {
 </script>
 
 <template>
-  <div class="card card-border-primary shadow-lg text-black wth mx-auto mt-5">
+  <div class="card card-border-primary shadow-lg text-black wth mx-auto mt-5 p-4">
     <form @submit.prevent="loginSubmit">
-      <div class="card-header border-light">
+      <div class="card-header border-light bg-transparent border-0">
         <h4 class="text-center">Login Form</h4>
       </div>
       <div class="card-body">
-        <Input
-          id="email"
-          labelName="Email"
-          type="email"
-          v-model.trim="login.email"
-          required
-          class="form-control"
-        />
-        <Input
-          id="password"
-          labelName="Password"
-          type="password"
-          v-model.trim="login.password"
-          required
-          class="form-control"
-        />
+        <div class="mb-3">
+          <Input
+            id="email"
+            labelName="Email"
+            type="email"
+            v-model.trim="login.email"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="password"
+            labelName="Password"
+            type="password"
+            v-model.trim="login.password"
+            required
+            class="form-control"
+          />
+        </div>
       </div>
-      <div class="card-footer d-flex justify-content-between">
+      <div class="card-footer d-flex justify-content-between bg-transparent border-0">
         <Button
           type="button"
           class="btn btn-outline-secondary w-50 fw-bold rounded-3"
@@ -55,10 +59,7 @@ const backToList = () => {
         >
           Back
         </Button>
-        <Button
-          type="submit"
-          class="btn btn-outline-primary w-50 fw-bold rounded-3"
-        >
+        <Button type="submit" class="btn btn-outline-primary w-50 fw-bold rounded-3">
           Submit
         </Button>
       </div>

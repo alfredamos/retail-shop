@@ -26,62 +26,67 @@ const backToList = () => {
 };
 </script>
 <template>
-  <div class="card w-50 mx-auto mt-5">
+  <div class="card card-border-primary shadow-lg text-black w-50 mx-auto mt-5 p-4">
     <form @submit.prevent="changePasswordSubmit">
-      <div class="card-header">
+      <div class="card-header bg-transparent border-0">
         <h4 class="text-center">Password Change Form</h4>
       </div>
       <div class="card-body">
-        <Input
-          id="email"
-          name="email"
-          labelName="Email"
-          v-model="changePassword.email"
-          type="email"
-          hidden
-          placeholder="Email"
-          class="form-control"
-        />
-        <Input
-          id="oldPassword"
-          name="oldPassword"
-          labelName="Old Password"
-          v-model.trim="changePassword.oldPassword"
-          type="password"
-          required
-          class="form-control"
-        />
-        <Input
-          id="newPassword"
-          name="newPassword"
-          labelName="New Password"
-          v-model.trim="changePassword.newPassword"
-          type="password"
-          required
-          class="form-control"
-        />
-        <Input
-          id="confirmPassword"
-          name="confirmPassword"
-          labelName="Confirm Password"
-          v-model.trim="changePassword.confirmPassword"
-          type="password"
-          required
-          class="form-control"
-        />
+        <div class="mb-3">
+          <Input
+            id="email"
+            name="email"
+            labelName=""
+            v-model="changePassword.email"
+            type="email"
+            hidden
+            placeholder="Email"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="oldPassword"
+            name="oldPassword"
+            labelName="Old Password"
+            v-model.trim="changePassword.oldPassword"
+            type="password"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="newPassword"
+            name="newPassword"
+            labelName="New Password"
+            v-model.trim="changePassword.newPassword"
+            type="password"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            labelName="Confirm Password"
+            v-model.trim="changePassword.confirmPassword"
+            type="password"
+            required
+            class="form-control"
+          />
+        </div>
       </div>
-      <div class="card-footer d-flex justify-content-between">
+      <div class="card-footer d-flex justify-content-between bg-transparent border-0">
         <Button
           type="button"
-          class="btn btn-outline-secondary w-50 fw-bold rounded-3"
+          class="btn btn-outline-secondary w-50 fw-bold rounded-5"
           @click="backToList"
         >
           Back
         </Button>
-        <Button
-          type="submit"
-          class="btn btn-outline-primary w-50 fw-bold rounded-3"
-        >
+        <Button type="submit" class="btn btn-outline-primary w-50 fw-bold rounded-5">
           Submit
         </Button>
       </div>
