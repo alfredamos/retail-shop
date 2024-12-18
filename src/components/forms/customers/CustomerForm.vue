@@ -1,104 +1,116 @@
 <template>
-  <div
-    class="card card-border-primary shadow-lg text-black w-50 mx-auto mt-5 p-4"
-  >
-    <div class="col col-sm-8 col-md-8 offset-2">
-      <div class="card">
-        <form @submit.prevent="submitCustomer">
-          <div class="card-header bg-primary text-white">
-            <h4 class="text-center">Customer Form</h4>
-          </div>
-          <div class="card-body">
-            <div class="mb-3">
-              <label for="name" class="form-label"> Name </label>
-              <input
-                id="name"
-                required
-                v-model.trim="customer.name"
-                type="text"
-                class="form-control"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Street</label>
-              <input
-                id="street"
-                v-model.trim="customer.street"
-                type="text"
-                required
-                class="form-control"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="city" class="form-label">City</label>
-              <input
-                id="city"
-                v-model.trim="customer.city"
-                type="text"
-                required
-                class="form-control"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="state" class="form-label">State</label>
-              <input
-                id="state"
-                v-model.trim="customer.state"
-                type="text"
-                required
-                class="form-control"
-              />
-            </div>
-            <div class="mb-3">
-              <label for="postCode" class="form-label">Postcode</label>
-              <input
-                id="postCode"
-                v-model.trim="customer.postCode"
-                type="text"
-                class="form-control"
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="country" class="form-label">Country</label>
-              <input
-                id="country"
-                name="country"
-                type="text"
-                v-model.trim="customer.country"
-                class="form-control"
-              />
-            </div>
-          </div>
-          <div class="card-footer">
-            <button
-              type="submit"
-              class="btn btn-outline-primary form-control fw-bold"
-            >
-              Submit
-            </button>
-            <button
-              type="button"
-              class="btn btn-outline-secondary form-control fw-bold"
-              @click="backToList"
-            >
-              Back
-            </button>
-          </div>
-        </form>
+  <div class="card card-border-primary shadow-lg text-black w-50 mx-auto mt-5 p-4">
+    <form @submit.prevent="submitCustomer">
+      <div class="card-header bg-transparent border-0">
+        <h4 class="text-center">{{ formName }} Customer Form</h4>
       </div>
-    </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <Input
+            id="name"
+            name="name"
+            labelName="Name"
+            v-model.trim="customer.name"
+            required
+            type="text"
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="street"
+            name="street"
+            labelName="Street"
+            v-model.trim="customer.street"
+            type="text"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="city"
+            name="city"
+            labelName="City"
+            v-model.trim="customer.city"
+            type="text"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="postCode"
+            name="postCode"
+            labelName="Post Code"
+            v-model.trim="customer.postCode"
+            type="text"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="state"
+            name="state"
+            labelName="State"
+            v-model.trim="customer.state"
+            type="text"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="country"
+            name="country"
+            labelName="Country"
+            v-model.trim="customer.country"
+            type="text"
+            required
+            class="form-control"
+          />
+        </div>
+        <div class="mb-3">
+          <Input
+            id="userId"
+            name="userId"
+            labelName=""
+            v-model.trim="customer.userId"
+            type="text"
+            hidden
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between bg-transparent border-0">
+        <Button
+          type="button"
+          class="btn btn-outline-secondary w-50 rounded-5 fw-bold"
+          @click="backToList"
+        >
+          Back
+        </Button>
+        <Button type="submit" class="btn btn-outline-primary w-50 rounded-5 fw-bold">
+          Submit
+        </Button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { Customer } from "@/validations/customerValidation";
 import { ref } from "vue";
+import Input from "@/components/form-utils/Input.vue";
+import Button from "@/components/form-utils/Button.vue";
+import { initialCustomer } from "@/views/customers/initialCustomer";
 
 const props = defineProps<{
-  customer: Customer;
+  initialCustomer: Customer;
+  formName: string;
 }>();
-const customer = ref<Customer>(props.customer);
+const customer = ref<Customer>(props.initialCustomer || initialCustomer);
 
 const emit = defineEmits(["onBackToList", "onSubmitCustomer"]);
 

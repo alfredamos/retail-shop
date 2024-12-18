@@ -21,7 +21,7 @@ export const useOrderStore = defineStore("order", () => {
   let quantities = ref<number>(1);
   let totalCost = ref<number>(1);
 
-  function addOrder(order: OrderProduct) {
+  function addOrder(order: OrderModel) {
     orderState.value.cartItems = order?.cartItems;
     orderState.value.orders.push(order);
     orderState.value.order = { ...order };
@@ -58,7 +58,7 @@ export const useOrderStore = defineStore("order", () => {
     orderState.value.orders = [...filteredOrders];
   }
 
-  function editOrder(order: OrderProduct) {
+  function editOrder(order: OrderModel) {
     orderState.value.orders.forEach((ord, index, _) => {
       if (ord.customerId === order.customerId) {
         orderState.value.cartItems = order.cartItems;
@@ -70,7 +70,7 @@ export const useOrderStore = defineStore("order", () => {
     totalCostAndQuantities(order.cartItems);
   }
 
-  function getAllOrders(ordersToAdd: OrderProduct[]) {
+  function getAllOrders(ordersToAdd: OrderModel[]) {
     const allOrders = [...orderState.value.orders, ...ordersToAdd];
     orderState.value.orders = [...allOrders];
   }
@@ -90,6 +90,8 @@ export const useOrderStore = defineStore("order", () => {
   }
 
   function totalCostAndQuantities(cartItems: CartItem[]) {
+    console.log("In use-order-store, cartItems : ", cartItems);
+
     orderState.value.totalCost = cartItems?.reduce(
       (accum, current) => accum + current.price * current.quantity,
       0

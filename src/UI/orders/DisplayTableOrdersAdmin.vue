@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mt-5 p-4 wth mx-auto">
     <table class="table table-striped table-responsive table-bordered">
       <thead>
         <tr>
@@ -14,6 +14,7 @@
       <tbody>
         <tr v-for="order in orders" :key="order.id">
           <DisplayOrderByRowAdmin
+            v-if="!!order"
             :order="order"
             @onIsDeliveredOrder="deliveredOrder"
             @onIsShippedOrder="shippedOrder"
@@ -22,12 +23,13 @@
         </tr>
       </tbody>
     </table>
-    <div class="d-flex justify-content-end align-content-center">
-      <FaArrowLeft size="15px" class="text-primary alfS" />
-      <RouterLink
-        to="/admin-main-panel"
-        class="stretch-link text-primary fw-bold"
-      >
+    <div class="d-flex justify-content-end align-content-center alfS">
+      <FaArrowLeft
+        size="15px"
+        class="text-primary"
+        style="align-self: center"
+      />
+      <RouterLink to="/admin-panel" class="stretch-link text-primary fw-bold">
         Back To Admin Panel
       </RouterLink>
     </div>
@@ -59,6 +61,7 @@ const shippedOrder = (order: OrderModel) => {
 };
 
 const viewOrder = (orderId: string) => {
+  console.log("view!!!", orderId);
   emits("onViewOrder", orderId);
 };
 </script>
@@ -66,5 +69,8 @@ const viewOrder = (orderId: string) => {
 <style scoped>
 .alfS {
   align-self: "center";
+}
+.wth {
+  width: 80%;
 }
 </style>

@@ -87,9 +87,12 @@
 <script lang="ts" setup>
 import type { CartItem } from "@/validations/cartItemValidation";
 import { FaMinus, FaPlus, FaDeleteLeft } from "vue3-icons/fa6";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/useAuthStore";
+
+const { name } = storeToRefs(useAuthStore());
 
 const props = defineProps<{
-  name: string;
   quantities: number;
   totalCost: number;
   carts: CartItem[];

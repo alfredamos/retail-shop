@@ -38,27 +38,25 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter, RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useOrderStore } from "@/stores/useOrderStore";
 import { storeToRefs } from "pinia";
 import CartDisplay from "@/UI/orders/CartDisplay.vue";
-import { FaArrowLeft } from "vue3-icons/fa6";
 import type { CartItem } from "@/validations/cartItemValidation";
 import { computed, ref } from "vue";
 import { quantityAdjustmentOrRemoval } from "@/components/view-util/cartItems/increaseOrRemoveQuantity";
 import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerByUserId";
 import { increaseOrDecreaseCartQuantity } from "@/components/view-util/cartItems/increaseOrDecreaseCartQuantity";
+import { FaArrowLeft } from "vue3-icons/fa";
 
 const router = useRouter();
 
-const { authUser } = useAuthStore();
+const { authUser, userId } = storeToRefs(useAuthStore());
 
-const userId = computed(() => authUser?.currentUser?.id);
+const { data: customer } = useGetCustomerByUserId(userId.value);
 
-const { data: customer } = useGetCustomerByUserId(userId.value); //----> Get the customer of interest.
-
-const customerId = computed(() => customer.value?.id as string); //----> Compute the customerId from customer.
+const customerId = computed(() => customer.value?.id);
 
 const orderStore = useOrderStore();
 const { quantities, totalCost, cartItems } = storeToRefs(orderStore);
@@ -91,7 +89,7 @@ const decreaseQuantityHandler = (productId: string) => {
   //----> Decrease the quantity and adjust appropriately all the other state variables.
   const { carts: itemsInCart, sumOfCosts, sumOfQuantities } = quantityAdjustmentOrRemoval(
     newCartItems,
-    customerId.value
+    customerId.value!
   );
 
   carts.value = itemsInCart;
@@ -108,7 +106,7 @@ const increaseQuantityHandler = (productId: string) => {
   //----> Decrease the quantity and adjust appropriately all the other state variables.
   const { carts: cartItems, sumOfCosts, sumOfQuantities } = quantityAdjustmentOrRemoval(
     newCartItems,
-    customerId.value
+    customerId.value!
   );
 
   carts.value = cartItems;
@@ -124,7 +122,7 @@ const removeItemHandler = (productId: string) => {
   //----> Remove the cart-item and adjust appropriately all the other state variables.
   const { carts: cartItems, sumOfCosts, sumOfQuantities } = quantityAdjustmentOrRemoval(
     filteredCartItems,
-    customerId.value
+    customerId.value!
   );
 
   //----> Assign the new values.

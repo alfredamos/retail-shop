@@ -2,7 +2,7 @@ import type { OrderModel } from "@/models/orderModel";
 import { OrderProduct } from "../models/OrderProduct";
 import { APIService } from "../services/dataService";
 
-export const orderService = new APIService<OrderProduct>("/orders");
+export const orderService = new APIService<OrderModel>("/orders");
 
 export const orderDeleteAllByCustomerIdService = new APIService<OrderProduct>(
   "orders/delete-all-orders-by-customer-id"
@@ -19,6 +19,6 @@ export const orderShippedService = new APIService<OrderModel>("orders/shipped");
 export const ordersByCustomerIdService = new APIService<OrderModel>(
   "orders/orders-by-customer-id"
 );
-export const ordersByUserIdService = new APIService<OrderModel>(
+export const ordersByUserIdService = new APIService<OrderModel[]>(
   "orders/orders-by-user-id"
 );

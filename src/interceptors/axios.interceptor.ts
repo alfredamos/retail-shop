@@ -28,7 +28,7 @@ instance.interceptors.response.use(
   (error) => {
     console.log(error);
     console.log("In response-interceptor,  response : ", error);
-    if (error?.response?.status === 401) {
+    /* if (error?.response?.status === 401) {
       console.log("Invalid credentials or expired token, please login!");
       localStorage.removeItem("auth");
       window.location.href = "/must-login";
@@ -39,7 +39,7 @@ instance.interceptors.response.use(
       window.location.href = "/not-allowed";
     }
     localStorage.removeItem("auth");
-    window.location.href = "/logout";
+    window.location.href = "/logout"; */
   }
 );
 

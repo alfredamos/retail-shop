@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row" v-if="!!products">
       <div v-for="product in products" class="col col-lg-4 mb-4 mt-5" :key="product.id">
-        <ProductDisplay :product="(product as Product)">
+        <ProductDisplay :product="product">
           <button
             type="button"
             @click="addToCartHandler(product)"
@@ -12,7 +12,7 @@
           </button>
           <button
             type="button"
-            @click="viewDetailHandler(product.id as string)"
+            @click="viewDetailHandler(product.id!)"
             class="btn btn-outline-dark fw-bold w-100 font-sm rounded-3"
           >
             Detail
@@ -35,7 +35,7 @@ import { useRouter } from "vue-router";
 import { computed, ref } from "vue";
 import { useOrderStore } from "@/stores/useOrderStore";
 import { useAuthStore } from "@/stores/useAuthStore";
-import ProductDisplay from "@/components/UI/products/ProductDisplay.vue";
+import ProductDisplay from "@/UI/products/ProductDisplay.vue";
 import CartItemsDisplay from "@/UI/orders/CartItemsDisplay.vue";
 import type { CartItem } from "@/validations/cartItemValidation";
 import type { Product } from "@/validations/productValidation";
@@ -48,7 +48,11 @@ import { storeToRefs } from "pinia";
 import type { OrderProduct } from "@/models/OrderProduct";
 
 const authStore = useAuthStore(); //----> Get the auth state.
-const userId = authStore?.userId;
+const { userId } = storeToRefs(authStore);
+
+const { data: customer } = useGetCustomerByUserId(userId.value);
+
+const customerId = computed(() => customer.value?.id);
 
 const router = useRouter();
 
@@ -60,10 +64,6 @@ const order = ref<OrderProduct>(orderTemp.value);
 
 const { data: products } = useFetchAllProducts();
 
-const { data: customer } = useGetCustomerByUserId(userId); //----> Get the customer of interest.
-
-const customerId = computed(() => customer.value?.id as string); //----> Compute the customerId from customer.
-
 const showCartItems = ref(false);
 const cart = ref<CartItem>({
   id: "",
@@ -74,7 +74,7 @@ const cart = ref<CartItem>({
 });
 
 const goToCartHandler = (carts: CartItem[]) => {
-  cartAndCheckoutMaker(customerId.value, carts);
+  cartAndCheckoutMaker(customerId.value!, carts);
 
   router.push("/cart");
 };
@@ -87,21 +87,21 @@ const detailViewHandler = ({
   productId: string;
 }) => {
   if (!productId) return;
-  cartAndCheckoutMaker(customerId.value, carts);
+  cartAndCheckoutMaker(customerId.value!, carts);
 
-  router.push(`/product-details/${productId}`);
+  router.push(`/single-product/${productId}`);
 };
 
 const backToProductsHandler = (carts: CartItem[]) => {
-  cartAndCheckoutMaker(customerId.value, carts);
+  cartAndCheckoutMaker(customerId.value!, carts);
   console.log("In-back-to-product, carts : ", cartItems.value);
   showCartItems.value = !showCartItems.value;
 };
 
 const viewDetailHandler = (productId: string) => {
-  cartAndCheckoutMaker(customerId.value, cartItems.value);
+  cartAndCheckoutMaker(customerId.value!, cartItems.value);
 
-  router.push(`/product-details/${productId}`);
+  router.push(`/single-product/${productId}`);
 };
 
 const addToCartHandler = (product: Product) => {
@@ -112,7 +112,7 @@ const addToCartHandler = (product: Product) => {
   console.log("cart : ", cart.value);
   //----> Call addCartItems to update cart-items.
   const { carts, tempOrder } = addCartItems(
-    customerId.value,
+    customerId.value!,
     product,
     cart.value,
     cartItems.value

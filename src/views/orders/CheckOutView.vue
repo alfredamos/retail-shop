@@ -36,19 +36,16 @@ import DisplayOrderOrCheckout from "@/UI/orders/DisplayOrderOrCheckout.vue";
 import { useOrderStore } from "@/stores/useOrderStore";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { storeToRefs } from "pinia";
-import { computed } from "vue";
 import { useCreateOrder } from "@/composable/orders/useCreateOrder";
+import type { OrderModel } from "@/models/orderModel";
 
-const { authUser } = storeToRefs(useAuthStore());
+const { name, userId } = storeToRefs(useAuthStore());
 const orderStore = useOrderStore();
 const { quantities, totalCost, cartItems, order } = storeToRefs(orderStore);
 
-const name = computed(() => authUser.value?.currentUser?.name);
-const userId = computed(() => authUser.value?.currentUser?.id);
-
 const router = useRouter();
 
-const {mutateAsync} = useCreateOrder();
+const { mutateAsync } = useCreateOrder();
 
 const clearCheckOutHandler = () => {
   //toast.success("The checkout has been cleared!");
@@ -61,18 +58,18 @@ const clearCheckOutHandler = () => {
 const submitOrderHandler = () => {
   console.log("At point 1, orderToCreate : ", order);
   console.log("submit-order clicked!");
-  mutateAsync(order.value)
-      .then((newOrder) => {
-        console.log("Order created, newOrder : ", newOrder)
-        /* toast.success(
+  mutateAsync(order.value as OrderModel)
+    .then((newOrder) => {
+      console.log("Order created, newOrder : ", newOrder);
+      /* toast.success(
           `The order is submitted  for payment!`
         );  */
 
-        orderStore.clearTotalCostAndQuantities();
-        orderStore.clearOrder()
-        router.push(`/profiles/${userId}`);
-      })
-      .catch((error) => console.log(error)); 
+      orderStore.clearTotalCostAndQuantities();
+      orderStore.clearOrder();
+      router.push(`/profiles/${userId}`);
+    })
+    .catch((error) => console.log(error));
 };
 
 const backToCartHandler = () => {

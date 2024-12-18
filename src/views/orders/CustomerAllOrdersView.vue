@@ -1,5 +1,5 @@
 <template>
-  <DisplayTableOrders :orders="orders" @onViewOrder="viewOrderHandler" />
+  <DisplayTableOrders v-if="!!orders" :orders="orders" @onViewOrder="viewOrderHandler" />
 </template>
 
 <script lang="ts" setup>
@@ -17,7 +17,7 @@ const { data: orders } = useGetOrdersByCustomerUserId(userId.value);
 
 const viewOrderHandler = (id: string) => {
   console.log("Let me view please", id);
-  router.push(`/admin-orders/view/${id}`);
+  router.push(`/orders/detail/${id}`);
 };
 </script>
 

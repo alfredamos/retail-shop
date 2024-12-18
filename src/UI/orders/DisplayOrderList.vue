@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="card card-border-primary shadow-lg text-black d-flex flex-column gap-2 mb-5"
-  >
+  <div class="card d-flex flex-column gap-2 mb- mt-5 p-5 wth mx-auto">
     <div class="d-flex justify-content-between">
       <span class="text-start">Order No.</span>
       <span class="text-end">{{ `${order.id.substring(0, 8)}...` }}</span>
@@ -24,20 +22,24 @@
         class="btn btn-outline-primary w-50 fw-bold rounded-2"
         @click="viewOrder(order.id)"
       >
-        <FaMagnifyingGlassArrowRight size="20px" />
+        <FaMagnifyingGlassArrowRight
+          class="d-flex justify-content-center align-center"
+          size="20px"
+        />
       </button>
       <button
         class="btn btn-outline-danger w-50 fw-bold rounded-2"
         @click="deleteOrder(order.id)"
       >
-        <FaDeleteLeft size="20px" />
+        <FaDeleteLeft class="d-flex justify-content-center align-center" size="20px" />
       </button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { FaDeleteLeft } from "vue3-icons";
+import type { OrderModel } from "@/models/orderModel";
+import { FaDeleteLeft, FaMagnifyingGlassArrowRight } from "vue3-icons/fa6";
 
 const props = defineProps<{
   order: OrderModel;
@@ -54,4 +56,12 @@ const deleteOrder = (id: string) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.wth {
+  width: 80%;
+}
+
+.alf {
+  align-self: center;
+}
+</style>

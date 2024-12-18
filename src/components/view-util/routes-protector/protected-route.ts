@@ -6,8 +6,13 @@ export function protectedRoute(
   from: any,
   next: (name?: string) => void
 ) {
-  const { isLoggedIn } = storeToRefs(useAuthStore());
-  console.log("In protected-route, isLoggedIn : ", isLoggedIn.value);
+  const { isLoggedIn, authUser } = storeToRefs(useAuthStore());
+  console.log(
+    "In protected-route, isLoggedIn : ",
+    isLoggedIn.value,
+    authUser.value
+  );
+
   if (isLoggedIn.value) {
     next();
   } else {

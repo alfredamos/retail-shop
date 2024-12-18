@@ -1,14 +1,13 @@
 <template>
   <div className="overlay">
-      <div className="card shadow-lg p-5 border-2 border-primary mx-auto wth">
-        <slot></slot>
-      </div>
-    </div>,
+    <div className="card shadow-lg p-5 border-2 border-primary mx-auto wth">
+      <slot></slot>
+    </div>
+  </div>
+  ,
 </template>
 
-<script lang="ts" setup>
-
-</script>
+<script lang="ts" setup></script>
 
 <style scoped>
 .overlay {
@@ -36,14 +35,11 @@
 }
 
 .modale-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
+  max-height: calc(100vh - 210px);
+  overflow-y: auto;
 }
 
-
-.wth{
+.wth {
   width: 40%;
 }
-
-
 </style>

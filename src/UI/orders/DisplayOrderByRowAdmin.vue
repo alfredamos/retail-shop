@@ -1,10 +1,10 @@
 <template>
-  <td>{{ order.id.substring(0, 9) }}</td>
-  <td>{{ order.customer?.name }}</td>
-  <td>{{ order.totalPrice }}</td>
-  <td>{{ order.totalQuantity }}</td>
-  <td>{{ order.status }}</td>
-  <td>
+  <td class="alf">{{ order.id.substring(0, 9) }}</td>
+  <td class="alf">{{ order.customer?.name }}</td>
+  <td class="alf">{{ order.totalPrice }}</td>
+  <td class="alf">{{ order.totalQuantity }}</td>
+  <td class="alf">{{ order.status }}</td>
+  <td class="alf">
     <button
       type="button"
       class="stretch-link text-secondary m-2 fw-bold bg-transparent border-0"
@@ -36,11 +36,7 @@ const props = defineProps<{
   order: OrderModel;
 }>();
 
-const emits = defineEmits([
-  "onViewOrder",
-  "onIsDeliveredOrder",
-  "onIsShippedOrder",
-]);
+const emits = defineEmits(["onViewOrder", "onIsDeliveredOrder", "onIsShippedOrder"]);
 
 const deliveredOrder = (order: OrderModel) => {
   emits("onIsDeliveredOrder", order);
@@ -51,8 +47,13 @@ const shippedOrder = (order: OrderModel) => {
 };
 
 const viewOrder = (orderId: string) => {
+  console.log({ orderId });
   emits("onViewOrder", orderId);
 };
 </script>
 
-<style lang="css" scoped></style>
+<style scoped>
+.alf {
+  vertical-align: middle;
+}
+</style>

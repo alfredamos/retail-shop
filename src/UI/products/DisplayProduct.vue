@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import {Product} from "../../validations/productValidation.ts";
+import type { Product } from '@/validations/productValidation';
+
 const props = defineProps<{
   product: Product;
 }>();

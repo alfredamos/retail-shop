@@ -6,4 +6,5 @@ export class AdminUser {
   email!: string;
   phone!: string;
   role!: Role;
+  token?: string;
 }

@@ -1,31 +1,29 @@
-import { computed, ref } from 'vue'
-import { defineStore } from 'pinia'
-import type { Product } from '@/validations/productValidation';
+import { computed, ref } from "vue";
+import { defineStore } from "pinia";
+import type { User } from "@/validations/userValidation";
 
+export const useUserStore = defineStore("user", () => {
+  let users = ref<User[]>([]);
 
-export const useProductStore = defineStore('product', () => {
-  let products = ref<Product[]>([]);
-
-
-  function addProduct(product: Product) {
-    products.value.push(product);
+  function addUser(user: User) {
+    users.value.push(user);
   }
 
-  function deleteProduct(id: string){
-    products.value.filter(product => product.id === id);
+  function deleteUser(id: string) {
+    users.value.filter((user) => user.id === id);
   }
 
-  function editProduct(product: Product){
-    const index = products.value.findIndex(cust => cust.id === product?.id);
-    products.value[index] = product;
+  function editUser(user: User) {
+    const index = users.value.findIndex((cust) => cust.id === user?.id);
+    users.value[index] = user;
   }
 
-  function getAllProducts(productsToAdd: Product[]){
-    const allProducts = [...products.value, ...productsToAdd];
-    products.value = [...allProducts];
+  function getAllUsers(usersToAdd: User[]) {
+    const allUsers = [...users.value, ...usersToAdd];
+    users.value = [...allUsers];
   }
 
-  const currentProducts = computed(() => products);
+  const currentUsers = computed(() => users);
 
-  return {currentProducts, addProduct, deleteProduct, editProduct, getAllProducts}
-})
+  return { currentUsers, addUser, deleteUser, editUser, getAllUsers };
+});

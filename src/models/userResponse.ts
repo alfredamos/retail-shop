@@ -7,4 +7,5 @@ export class UserResponse {
   gender!: string;
   phone!: string;
   role!: Role;
+  token?: string;
 }
