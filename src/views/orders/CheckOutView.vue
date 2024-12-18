@@ -38,12 +38,22 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import { storeToRefs } from "pinia";
 import { useCreateOrder } from "@/composable/orders/useCreateOrder";
 import type { OrderModel } from "@/models/orderModel";
+import { useGetCustomerByUserId } from "@/composable/customers/useGetCustomerByUserId";
+import { computed, ref } from "vue";
+import type { CartItem } from "@/validations/cartItemValidation";
+import { quantityAdjustmentOrRemoval } from "@/components/view-util/cartItems/increaseOrRemoveQuantity";
 
 const { name, userId } = storeToRefs(useAuthStore());
 const orderStore = useOrderStore();
 const { quantities, totalCost, cartItems, order } = storeToRefs(orderStore);
 
 const router = useRouter();
+
+const carts = ref<CartItem[]>([]);
+
+const { data: customer } = useGetCustomerByUserId(userId.value);
+
+const customerId = computed(() => customer.value?.id);
 
 const { mutateAsync } = useCreateOrder();
 
@@ -52,6 +62,19 @@ const clearCheckOutHandler = () => {
   console.log("Clear-checkout clicked!");
   orderStore.clearOrder();
   orderStore.clearTotalCostAndQuantities();
+
+  carts.value = [];
+
+  const {
+    carts: itemsInCart,
+    sumOfCosts,
+    sumOfQuantities,
+  } = quantityAdjustmentOrRemoval(carts.value, customerId.value!);
+
+  carts.value = itemsInCart;
+  totalCost.value = sumOfCosts;
+  quantities.value = sumOfQuantities;
+
   router.push("/products");
 };
 
@@ -82,3 +105,7 @@ const backToCartHandler = () => {
   margin-right: 2px;
 }
 </style>
+import { quantityAdjustmentOrRemoval } from
+"@/components/view-util/cartItems/increaseOrRemoveQuantity"; import {
+useGetCustomerByUserId } from "@/composable/customers/useGetCustomerByUserId";
+import { computed } from "vue";

@@ -2,6 +2,7 @@ import type { CartItem } from "@/validations/cartItemValidation";
 import { sumOfQuantitiesAndSumOfCosts } from "./sumOfQuantitiesAndSumOfCosts";
 import { useOrderStore } from "@/stores/useOrderStore";
 import type { OrderProduct } from "@/models/OrderProduct";
+import type { OrderModel } from "@/models/orderModel";
 
 interface QuantityAdjustmentReturn {
   carts: CartItem[];
@@ -23,7 +24,7 @@ export const quantityAdjustmentOrRemoval = (
   console.log("There are still items in cart", { carts });
   //----> Reflect the change in the order.
   const orderCartTemp: OrderProduct = { customerId, cartItems: carts };
-  orderStore.editOrder(orderCartTemp); //----> Replace with new order.
+  orderStore.editOrder(orderCartTemp as OrderModel); //----> Replace with new order.
 
   return { carts, sumOfCosts, sumOfQuantities };
 };

@@ -12,7 +12,7 @@
     <hr />
     <div class="d-flex justify-content-between">
       <span class="text-start">
-        {{ order.totalQuantity > 1 ? "Quantities" : "Quantity" }}
+        {{ totalQuantity > 1 ? "Quantities" : "Quantity" }}
       </span>
       <span class="text-end">{{ order.totalQuantity }}</span>
     </div>
@@ -39,12 +39,14 @@
 
 <script lang="ts" setup>
 import type { OrderModel } from "@/models/orderModel";
+import { computed } from "vue";
 import { FaDeleteLeft, FaMagnifyingGlassArrowRight } from "vue3-icons/fa6";
 
 const props = defineProps<{
   order: OrderModel;
 }>();
 
+const totalQuantity = computed(() => props?.order?.totalQuantity as number);
 const emits = defineEmits(["onView", "onDelete"]);
 
 const viewOrder = (id: string) => {

@@ -1,5 +1,5 @@
-import { Order } from "../validations/orderValidation";
-import { Product } from "../validations/productValidation";
+import { type Order } from "../validations/orderValidation";
+import { type Product } from "../validations/productValidation";
 
 export default class CartItemDto {
   id?: string = ""; 

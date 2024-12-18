@@ -1,10 +1,9 @@
 <template>
-  <div className="overlay">
-    <div className="card shadow-lg p-5 border-2 border-primary mx-auto wth">
+  <div class="overlay">
+    <div class="card shadow-lg p-5 border-2 border-primary mx-auto wth">
       <slot></slot>
     </div>
   </div>
-  ,
 </template>
 
 <script lang="ts" setup></script>

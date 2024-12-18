@@ -1,21 +1,18 @@
 <script lang="ts" setup>
 import type { Product } from "@/validations/productValidation";
-import { reactive } from "vue";
-import Button from "@/components/form-utils/Button.vue";
+import { ref } from "vue";
 
 interface Props {
   initialProduct: Product;
-  formName: string;
 }
 
 const props = defineProps<Props>();
-
-const product = reactive<Product>(props.initialProduct);
+const product = ref<Product>(props.initialProduct);
 
 const emit = defineEmits(["onBackToList", "onSubmitProduct"]);
 
 const submitProduct = () => {
-  emit("onSubmitProduct", product);
+  emit("onSubmitProduct", product.value);
 };
 
 const backToList = () => {
@@ -27,25 +24,23 @@ const backToList = () => {
   <div class="card card-border-primary shadow-lg text-black w-50 mx-auto mt-5 p-4">
     <form @submit.prevent="submitProduct">
       <div class="card-header bg-transparent border-0">
-        <h4 class="text-center">{{ formName }} Product Form</h4>
+        <h4 class="text-center">Product Form</h4>
       </div>
       <div class="card-body">
         <div class="mb-3">
+          <label for="name" class="form-label"> Name </label>
           <input
             id="name"
-            name="name"
-            placeholder="Enter Name"
-            v-model.trim="product.name"
             required
+            v-model.trim="product.name"
             type="text"
             class="form-control"
           />
         </div>
         <div class="mb-3">
+          <label for="brand" class="form-label">Brand</label>
           <input
             id="brand"
-            name="brand"
-            placeholder="Enter Brand"
             v-model.trim="product.brand"
             type="text"
             required
@@ -53,61 +48,55 @@ const backToList = () => {
           />
         </div>
         <div class="mb-3">
-          <input
-            id="image"
-            name="image"
-            placeholder="Enter Image"
-            v-model.trim="product.image"
-            type="text"
-            required
-            class="form-control"
-          />
-        </div>
-        <div class="mb-3">
+          <label for="price" class="form-label">Price</label>
           <input
             id="price"
-            name="price"
-            placeholder="Enter Price"
-            v-model.trim="product.price"
+            v-model.number="product.price"
             type="number"
             required
             class="form-control"
           />
         </div>
         <div class="mb-3">
+          <label for="quantity" class="form-label">Quantity</label>
           <input
             id="quantity"
-            name="quantity"
-            placeholder="Enter Quantity"
-            v-model.trim="product.quantity"
+            v-model.number="product.quantity"
             type="number"
             required
             class="form-control"
           />
         </div>
         <div class="mb-3">
-          <textarea
-            id="description"
-            name="description"
-            placeholder="Enter Description"
-            v-model.trim="product.description"
+          <label for="image" class="form-label">Image</label>
+          <input
+            id="image"
+            v-model.trim="product.image"
             type="text"
-            required
             class="form-control"
           />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            id="description"
+            type="text"
+            v-model.trim="product.description"
+            class="form-control"
+          ></textarea>
         </div>
       </div>
       <div class="card-footer d-flex justify-content-between bg-transparent border-0">
-        <Button
+        <button type="submit" class="btn btn-outline-primary form-control fw-bold">
+          Submit
+        </button>
+        <button
           type="button"
-          class="btn btn-outline-secondary w-50 rounded-5 fw-bold"
+          class="btn btn-outline-secondary form-control fw-bold"
           @click="backToList"
         >
           Back
-        </Button>
-        <Button type="submit" class="btn btn-outline-primary w-50 rounded-5 fw-bold">
-          Submit
-        </Button>
+        </button>
       </div>
     </form>
   </div>

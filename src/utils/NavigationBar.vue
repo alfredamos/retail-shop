@@ -16,7 +16,7 @@ console.log({
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3">
     <div class="container">
       <router-link type="button" class="navbar-brand mx-xxl-5" to="/products">
         <span
@@ -80,10 +80,13 @@ console.log({
           <li class="nav-item mx-5" v-if="!isLoggedIn">
             <router-link type="button" class="nav-link" to="/signup">Signup</router-link>
           </li>
-          <li v-if="isLoggedIn" class="nav-item mx-5">
+          <li
+            v-if="isLoggedIn"
+            class="nav-item mx-5 d-flex justify-content-center align-content-center"
+          >
             <router-link type="button" class="nav-link align-self-auto" to="/logout">
-              logout</router-link
-            >
+              logout
+            </router-link>
             <router-link
               v-if="quantities"
               type="button"
@@ -91,7 +94,12 @@ console.log({
               to="/cart"
             >
               <div className="position-relative">
-                <FaShoppingCart size="1.8rem" color="gray" style="align-self: center" />
+                <FaShoppingCart
+                  class="alf"
+                  size="1.8rem"
+                  color="gray"
+                  style="align-self: center"
+                />
                 <span
                   class="position-absolute top-0 bg-secondary p-1 start-100 translate-middle text-white border border-light fs-6 fw-bold px-2"
                   style="display: inline-block; border-radius: 100%"
@@ -106,3 +114,9 @@ console.log({
     </div>
   </nav>
 </template>
+
+<style scoped>
+.alf {
+  vertical-align: middle;
+}
+</style>

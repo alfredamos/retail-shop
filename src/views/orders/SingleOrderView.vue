@@ -18,6 +18,7 @@
       type="button"
       class="btn btn-outline-dark w-30 fw-bold btn-sm rounded-3"
       @click="viewCartHandler(cartItems)"
+      :style="`${cartItems.length > 0 ? 'cursor: pointer' : 'cursor: not-allowed'}`"
     >
       View Cart
     </button>
@@ -83,6 +84,7 @@ const backToProductsHandler = (carts: CartItem[]) => {
   //showCartItems.value = !showCartItems.value;
   router.push("/products");
 };
+
 const backToListHandler = () => {
   cartAndCheckoutMaker(customerId.value!, cartItems.value);
   console.log("In-back-to-product, carts : ", cartItems.value);
@@ -123,18 +125,29 @@ const goToCartHandler = (carts: CartItem[]) => {
 };
 
 const viewCartHandler = (carts: CartItem[]) => {
+  if (!carts?.length) return;
   orderStore.addOrder({
     cartItems: carts,
     customerId: customerId.value as string,
   } as OrderModel);
+  cartItems.value = carts;
   showCartItems.value = !showCartItems.value;
 };
 
-const detailCartHandler = (carts: CartItem[]) => {
+const detailCartHandler = ({
+  carts,
+  productId,
+}: {
+  carts: CartItem[];
+  productId: string;
+}) => {
+  console.log("In single-order, detail-cart ", carts);
   orderStore.addOrder({
     cartItems: carts,
     customerId: customerId.value as string,
   } as OrderModel);
+
+  cartItems.value = carts;
   showCartItems.value = !showCartItems.value;
 };
 </script>

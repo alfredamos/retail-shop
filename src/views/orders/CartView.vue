@@ -25,7 +25,7 @@
       </button>
     </template>
     <template #noCart v-else>
-      <h4 className="text-center">
+      <h4 class="text-center">
         <router-link to="/products" className="stretch-link primary">
           <FaArrowLeft />
           No cart items, go back to products
@@ -66,11 +66,19 @@ const carts = ref<CartItem[]>(cartItems.value);
 const clearCartHandler = () => {
   console.log("Cart is cleared successfully!");
 
-  carts.value = []; //----> Cart cleared.
-
   orderStore.clearCartItems(); //----> Clear cart-items.
   orderStore.clearOrder(); //----> Clear orders;
   orderStore.clearTotalCostAndQuantities(); //----> Clear the total cost and quantities.
+
+  //carts = []; //----> Cart cleared.
+  const { carts: itemsInCart, sumOfCosts, sumOfQuantities } = quantityAdjustmentOrRemoval(
+    (carts.value = []),
+    customerId.value!
+  );
+
+  carts.value = itemsInCart;
+  totalCost.value = sumOfCosts;
+  quantities.value = sumOfQuantities;
 
   router.push("/");
 };

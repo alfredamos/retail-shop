@@ -4,8 +4,8 @@
     orderOrCheckoutName="Order"
     :cartItems="order?.cartItems"
     :orderBy="order?.customer?.name!"
-    :quantities="order?.totalQuantity"
-    :totalPrice="order?.totalPrice"
+    :quantities="order?.totalQuantity!"
+    :totalPrice="order?.totalPrice!"
   >
     <button
       type="button"

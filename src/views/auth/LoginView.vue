@@ -1,33 +1,31 @@
-
 <script lang="ts" setup>
-import LoginForm from '@/components/forms/auth/LoginForm.vue';
-import { useLogin } from '@/composable/auth/useLogin';
-import type { Login } from '@/validations/loginValidation';
-import {useRouter} from "vue-router";
+import LoginForm from "@/components/forms/auth/LoginForm.vue";
+import { useLogin } from "@/composable/auth/useLogin";
+import type { Login } from "@/validations/loginValidation";
+import { useRouter } from "vue-router";
 
-const initialValue : Login ={
+const initialValue: Login = {
   email: "",
-  password: ""
-}
+  password: "",
+};
 
-const router = useRouter()
+const router = useRouter();
 
-const {mutateAsync: userLogin} = useLogin()
+const { mutateAsync: userLogin } = useLogin();
 
 const loginSubmit = (login: Login) => {
-  console.log({login});
+  console.log({ login });
   userLogin(login).then(() => router.push("/"));
-  
-}
+};
 
 const backToList = () => {
-  router.push("/")
-}
+  router.push("/");
+};
 </script>
 <template>
   <LoginForm
-  :initial-value="initialValue"
-  @on-back-to-list="backToList"
-  @on-login="loginSubmit"
+    :initial-value="initialValue"
+    @on-back-to-list="backToList"
+    @on-login="loginSubmit"
   />
 </template>

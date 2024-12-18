@@ -8,8 +8,6 @@ export const increaseOrDecreaseCartQuantity = (
 ) => {
   const opera: number = operation === "increaseQuantity" ? 1 : -1;
 
-  const orderStore = useOrderStore();
-
   const newCartItems = carts
     ?.map((cart) => {
       if (cart.productId === productId && opera === 1) {

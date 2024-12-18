@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="mb-3"> -->
-  <label :for="id" class="form-label">{{ labelName }}</label>
-  <input :id="id" v-bind="{ ...$attrs }" v-model="model" />
+  <label :for="$props.id" class="form-label">{{ $props.labelName }}</label>
+  <input :id="$props.id" v-bind="{ ...$attrs }" v-model="model" />
   <!-- </div> -->
 </template>
 

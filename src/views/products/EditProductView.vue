@@ -1,6 +1,6 @@
 <template>
-  <ProductForm
-    v-if="!!product"
+  <FormProduct
+    v-if="product"
     formName="Edit"
     :initialProduct="product"
     @onSubmitProduct="submitProductHandler"
@@ -9,7 +9,8 @@
 </template>
 
 <script lang="ts" setup>
-import ProductForm from "@/components/forms/products/ProductForm.vue";
+//import ProductForm from "@/components/forms/products/ProductForm.vue";
+import FormProduct from "@/components/forms/products/FormProduct.vue";
 import { useUpdateProduct } from "@/composable/products/useUpdateProduct";
 import type { Product } from "@/validations/productValidation";
 import { ref } from "vue";

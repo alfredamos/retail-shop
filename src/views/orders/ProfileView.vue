@@ -1,5 +1,5 @@
 <template>
-  <div class="row mt-5 p-4">
+  <div class="row p-4">
     <div class="col-12 col-sm-12 col-container">
       <div class="row">
         <template v-if="orders?.length! > 0">
@@ -13,7 +13,7 @@
         </template>
 
         <template v-else>
-          <div class="col-10 mx-auto p-4">
+          <div class="col-10 mx-auto p-4 mt-5">
             <div class="card m-auto">
               <hr />
               <h4 class="text-start p-4">

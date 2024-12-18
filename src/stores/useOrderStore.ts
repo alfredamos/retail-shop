@@ -37,7 +37,7 @@ export const useOrderStore = defineStore("order", () => {
 
   function clearOrder() {
     orderState.value = { ...initialState };
-    //localStorage.removeItem("order");
+    localStorage.removeItem("order");
   }
 
   function clearCartItems() {
@@ -47,7 +47,7 @@ export const useOrderStore = defineStore("order", () => {
   function clearTotalCostAndQuantities() {
     orderState.value.quantities = initialState.quantities;
     orderState.value.totalCost = initialState.totalCost;
-    //localStorage.removeItem("order");
+    localStorage.removeItem("order");
   }
 
   function deleteOrder(id: string) {
